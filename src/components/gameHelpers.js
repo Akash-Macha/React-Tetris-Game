@@ -1,5 +1,7 @@
 export const STAGE_WIDTH = 12;
 export const STAGE_HEIGHT = 20;
+
+// 2nd value can be clear or merge
 const CELL = [0, 'clear'];
 
 /**
