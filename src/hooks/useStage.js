@@ -5,8 +5,29 @@ import { createStage } from '../components/gameHelpers';
 /** https://youtu.be/ZGOaCxX8HIU?t=5037 */
 export const useStage = (player, resetPlayer) => {
 	const [stage, setStage] = useState(createStage()); // clean board
+	const [rowsCleared, setRowsCleared] = useState(0);
 
 	useEffect(() => {
+		setRowsCleared(0);
+		// accumulator is the new array that we're builing inside the reduce function
+		//												accumulator, row
+		const sweepRows = (newStage) => 
+			newStage.reduce((ack, row) => {
+				// if a row contains at least one 0, it isn't filled completely, we shouldn't clear it
+				if (row.findIndex(cell => cell[0] === 0) === -1) {
+				// if a row is filled completely
+
+				// add +1 to rowsCleared
+				setRowsCleared(prev => prev + 1);
+				// add a empyt row at the top of the row
+				ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
+				
+				return ack;
+			}
+			ack.push(row); 
+			return ack;
+		}, []);
+
 		const updateStage = (prevStage) => {
 			// When we update the Stage
 			// 1. Flush the stage, (remove everything that shouldn't be there, if lowest row is filled up?)
@@ -33,12 +54,19 @@ export const useStage = (player, resetPlayer) => {
 				})
 			});
 
+			// then check if we collided
+			if (player.collided) {
+				resetPlayer();
+				return sweepRows(newStage);
+			}
+
 			return newStage;
 		};
 
 		setStage((prev) => updateStage(prev))
-	}, [player.collided, player.pos.x, player.pos.y, player.tetromino]);
+	}, [player, resetPlayer]);
+// }, [player.collided, player.pos.x, player.pos.y, player.tetromino]);
 
-	return [stage, setStage];
+	return [stage, setStage, rowsCleared];
 };
 

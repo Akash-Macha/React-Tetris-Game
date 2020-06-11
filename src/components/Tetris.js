@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { createStage } from './gameHelpers';
+import { createStage, checkCollision } from './gameHelpers';
 
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
@@ -20,7 +20,7 @@ const Tetris = () => {
 	const [dropTime, setDropTime] = useState(null);
 	const [gameOver, setGameOver] = useState(false);
 
-	const [player, updatePlayerPos, resetPlayer] = usePlayer();
+	const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
 	const [stage, setStage] = useStage(player, resetPlayer);
 
 	/**
@@ -28,10 +28,14 @@ const Tetris = () => {
 	 * dir will have the x co-ordinate value, since we're handling left & right moves
 	 */
 	const movePlayer = (dir) => {
-		updatePlayerPos({
-			x: dir,
-			y: 0,
-		});
+		// move if we don't collide with anything
+		// stop moving if we collide with side walls
+		if(!checkCollision(player, stage, {x: dir, y: 0})) {
+			updatePlayerPos({
+				x: dir,
+				y: 0,
+			});
+		}
 	};
 
 	const startGame= () => {
@@ -42,6 +46,7 @@ const Tetris = () => {
 		 */
 		setStage(createStage());
 		resetPlayer();
+		setGameOver(false);
 	}; 
 
 	/**
@@ -49,11 +54,21 @@ const Tetris = () => {
 	 * tetramine a one cell down!
 	 */
 	const drop = () => {
-		updatePlayerPos({
-			x: 0,
-			y: 1,
-			collided: false,
-		});
+		if(!checkCollision(player, stage, {x: 0, y: 1})) {
+			updatePlayerPos({
+				x: 0,
+				y: 1,
+				collided: false,
+			});
+		} else {
+			// Game Over
+			if(player.pos.y < 1) {
+				console.log("GAME OVER");
+				setGameOver(true);
+				setDropTime(null);
+			}
+			updatePlayerPos({x: 0, y: 0, collided: true})
+		}
 	};
 
 	const dropPlayer = () => {
@@ -69,6 +84,8 @@ const Tetris = () => {
 			else if (keyCode === 39) movePlayer(1);
 			// down arrow
 			else if (keyCode === 40) dropPlayer();
+			// up arrow
+			else if (keyCode === 38) playerRotate(stage, 1); // 1 indicates in clock-wise
 		}
 	};
 
