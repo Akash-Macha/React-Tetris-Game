@@ -9,22 +9,25 @@ export const useStage = (player, resetPlayer) => {
 
 	useEffect(() => {
 		setRowsCleared(0);
-		// accumulator is the new array that we're builing inside the reduce function
-		//												accumulator, row
 		const sweepRows = (newStage) => 
+			// accumulator is the new array that we're builing inside the reduce function
+			//				accumulator, row
 			newStage.reduce((ack, row) => {
 				// if a row contains at least one 0, it isn't filled completely, we shouldn't clear it
+				// the below condition will return true, when there are No 0's in the row, we can clear it!
 				if (row.findIndex(cell => cell[0] === 0) === -1) {
-				// if a row is filled completely
+					// if a row is filled completely
+					// add +1 to rowsCleared
+					setRowsCleared((prev) => prev + 1);
 
-				// add +1 to rowsCleared
-				setRowsCleared(prev => prev + 1);
-				// add a empyt row at the top of the row
-				ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
-				
-				return ack;
-			}
+					// add a empyt row at the top of the row
+					ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
+					
+					return ack;
+				}
+			/** if we have at least one 0 in the row, we'll add the row to accumulator*/
 			ack.push(row); 
+			
 			return ack;
 		}, []);
 

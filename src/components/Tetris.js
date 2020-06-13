@@ -45,12 +45,12 @@ const Tetris = () => {
 		}
 	};
 
+	/**
+	 * Reset the 
+	 * Stage &
+	 * Player
+	 */
 	const startGame= () => {
-		/**
-		 * Reset the 
-		 * Stage &
-		 * Player
-		 */
 		setStage(createStage());
 		setDropTime(1000); // 1 sec
 		resetPlayer();
@@ -69,18 +69,21 @@ const Tetris = () => {
 		// increase level when player has cleared 10 rows
 		if (rows > (level + 1) * 10) {
 			setLevel((prev) => prev + 1);
+
 			// Also increase speed
 			setDropTime(1000 / (level + 1) + 200);
 		}
 
 		if(!checkCollision(player, stage, {x: 0, y: 1})) {
+			/** if there is NO collision, move the cell 1 bit down */
 			updatePlayerPos({
 				x: 0,
 				y: 1,
 				collided: false,
 			});
 		} else {
-			// Game Over
+			// if there is Collision?
+			// Game Over!
 			if(player.pos.y < 1) {
 				console.log("GAME OVER");
 				setGameOver(true);
@@ -90,10 +93,14 @@ const Tetris = () => {
 		}
 	};
 
-
+	/** ArrwoDown = 40
+	 * 	but the function name I put is keyUp?
+	 *  check where I have used it
+	 */
 	const keyUp = ({ keyCode }) => {
 		console.log("interval on");
 		if (!gameOver) {
+			/** ArrwoDown = 40 */
 			if (keyCode === 40) {
 				setDropTime(1000 / (level + 1) + 200);
 			}
