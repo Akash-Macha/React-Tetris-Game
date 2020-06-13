@@ -46,9 +46,7 @@ const Tetris = () => {
 	};
 
 	/**
-	 * Reset the 
-	 * Stage &
-	 * Player
+	 * Reset the Stage, DropTime, Player, GameOver state, Score, Level, Rows count
 	 */
 	const startGame= () => {
 		setStage(createStage());
@@ -98,7 +96,7 @@ const Tetris = () => {
 	 *  check where I have used it
 	 */
 	const keyUp = ({ keyCode }) => {
-		console.log("interval on");
+		// console.log("interval on");
 		if (!gameOver) {
 			/** ArrwoDown = 40 */
 			if (keyCode === 40) {
@@ -108,7 +106,8 @@ const Tetris = () => {
 	};
 
 	const dropPlayer = () => {
-		console.log("interval off");
+		// console.log("interval off");
+		
 		// When we press the down key
 		// we want to stop the player 
 		// stop the interval, 

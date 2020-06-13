@@ -27,7 +27,7 @@ export const useStage = (player, resetPlayer) => {
 				}
 			/** if we have at least one 0 in the row, we'll add the row to accumulator*/
 			ack.push(row); 
-			
+
 			return ack;
 		}, []);
 
@@ -41,14 +41,33 @@ export const useStage = (player, resetPlayer) => {
 			// otherwise we return the cell as it is & it will stay in the stage
 			//      Thus we know what cells have collided tetraminos in them or not
 			const newStage = prevStage.map((row) => row.map((cell) =>
+			  // CELL = [0, 'clear']
 				cell[1] === 'clear'
 					? [0, 'clear']
 					: cell));
 
-			// 2. Draw the tetramino
+			/**
+			 * 2. Draw the tetramino
+			 * eg tetromono:
+			 *    [[0, 'I', 0, 0],
+       *     [0, 'I', 0, 0],
+       *     [0, 'I', 0, 0],
+       *     [0, 'I', 0, 0],]
+			 * 
+			 * newStage is a fresh and flush stage, thus we can use it to position tetromino on the stage
+			 * stage structure:
+			 * 		[
+			 * 			[[0, 'clear'], [0, 'clear'], [0, 'clear'], ...],
+			 * 		  [[0, 'clear'], [0, 'clear'], [0, 'clear'], ...],
+			 * 		  [[0, 'clear'], [0, 'clear'], [0, 'clear'], ...],
+			 * 		]
+			 */
 			player.tetromino.forEach((row, y) => {
 				row.forEach((value, x) => {
 					if (value !== 0) {
+						// console.log('newStage: ', newStage);
+						// console.log('y: ', y);
+						// console.log('player: ', player);
 						newStage[y + player.pos.y][x + player.pos.x] = [
 							value,
 							`${player.collided ? 'merged' : 'clear'}`

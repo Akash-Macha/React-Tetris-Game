@@ -1,0 +1,11 @@
+[][][]
+  []
+
+when it hits the 0th row in the stage
+newStage[y][x] = []
+
+y value is becoming 20
+
+
+Resolved:
+  by removing <React.StrictMode> in index.js

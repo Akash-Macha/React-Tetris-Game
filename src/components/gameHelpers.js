@@ -14,7 +14,7 @@ const CELL = [0, 'clear'];
  */
 export const createStage = () => 
 	Array.from( Array(STAGE_HEIGHT), () => 
-		new Array(STAGE_WIDTH).fill([0, 'clear']) 
+		new Array(STAGE_WIDTH).fill(CELL)
 	);
 
 /** Collision Detection: https://www.youtube.com/watch?v=ZGOaCxX8HIU&t=5822s
