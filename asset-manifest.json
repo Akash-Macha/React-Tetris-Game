@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/react-tetris-app/static/css/main.1a221ddb.chunk.css",
-    "main.js": "/react-tetris-app/static/js/main.5fc07679.chunk.js",
-    "main.js.map": "/react-tetris-app/static/js/main.5fc07679.chunk.js.map",
-    "runtime-main.js": "/react-tetris-app/static/js/runtime-main.f0fe2444.js",
-    "runtime-main.js.map": "/react-tetris-app/static/js/runtime-main.f0fe2444.js.map",
-    "static/js/2.514db48c.chunk.js": "/react-tetris-app/static/js/2.514db48c.chunk.js",
-    "static/js/2.514db48c.chunk.js.map": "/react-tetris-app/static/js/2.514db48c.chunk.js.map",
-    "index.html": "/react-tetris-app/index.html",
-    "precache-manifest.1db69a8e06df28e1c09d3fbd91dc181c.js": "/react-tetris-app/precache-manifest.1db69a8e06df28e1c09d3fbd91dc181c.js",
-    "service-worker.js": "/react-tetris-app/service-worker.js",
-    "static/css/main.1a221ddb.chunk.css.map": "/react-tetris-app/static/css/main.1a221ddb.chunk.css.map",
-    "static/js/2.514db48c.chunk.js.LICENSE.txt": "/react-tetris-app/static/js/2.514db48c.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/react-tetris-app/static/media/Pixel-LCD-7.e2897552.woff",
-    "static/media/bg.png": "/react-tetris-app/static/media/bg.2810fe6b.png"
+    "main.css": "./static/css/main.dd4930af.chunk.css",
+    "main.js": "./static/js/main.bfd7fb62.chunk.js",
+    "main.js.map": "./static/js/main.bfd7fb62.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.7239bace.js",
+    "runtime-main.js.map": "./static/js/runtime-main.7239bace.js.map",
+    "static/js/2.9f531560.chunk.js": "./static/js/2.9f531560.chunk.js",
+    "static/js/2.9f531560.chunk.js.map": "./static/js/2.9f531560.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.6de853dda9725a37b6034dc04be02bd7.js": "./precache-manifest.6de853dda9725a37b6034dc04be02bd7.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.dd4930af.chunk.css.map": "./static/css/main.dd4930af.chunk.css.map",
+    "static/js/2.9f531560.chunk.js.LICENSE.txt": "./static/js/2.9f531560.chunk.js.LICENSE.txt",
+    "static/media/index.css": "./static/media/Pixel-LCD-7.e2897552.woff",
+    "static/media/bg.png": "./static/media/bg.2810fe6b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f0fe2444.js",
-    "static/js/2.514db48c.chunk.js",
-    "static/css/main.1a221ddb.chunk.css",
-    "static/js/main.5fc07679.chunk.js"
+    "static/js/runtime-main.7239bace.js",
+    "static/js/2.9f531560.chunk.js",
+    "static/css/main.dd4930af.chunk.css",
+    "static/js/main.bfd7fb62.chunk.js"
   ]
 }
