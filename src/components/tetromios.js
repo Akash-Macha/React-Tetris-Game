@@ -62,6 +62,6 @@ export const TETROMINOS = {
 export const randomTetromino = () => {
     const tetromonos = 'IJLOSTZ';
     const randomTetromino = tetromonos[Math.floor(Math.random() * tetromonos.length)];
-    console.log('selected TETROMINOS: ', TETROMINOS[randomTetromino]);
+    // console.log('selected TETROMINOS: ', TETROMINOS[randomTetromino]);
     return TETROMINOS[randomTetromino];
 }

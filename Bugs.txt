@@ -9,3 +9,11 @@ y value is becoming 20
 
 Resolved:
   by removing <React.StrictMode> in index.js
+
+
+  14th June 2020 9 40 PM
+  - implemented touch feature- left, right, bottom, top
+
+  - try to figure out a way to handle setDropTime
+     when we swip down
+     [ like we did with keyDown ]

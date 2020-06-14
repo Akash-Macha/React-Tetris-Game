@@ -4,6 +4,7 @@ import { createStage, checkCollision } from './gameHelpers';
 
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
+import ReactTouchEvents from "react-touch-events";
 
 // custom hooks
 import { useInterval } from '../hooks/useInterval';
@@ -17,7 +18,7 @@ import Display from './Display';
 import StartButton from './StartButton';
 
 const Tetris = () => {
-	console.log('re-rendered: [Tetris]');
+	// console.log('re-rendered: [Tetris]');
 
 	const [dropTime, setDropTime] = useState(null);
 	const [gameOver, setGameOver] = useState(false);
@@ -105,14 +106,14 @@ const Tetris = () => {
 		}
 	};
 
-	const dropPlayer = () => {
+	const dropPlayer = (isNotTouchEvent=true) => {
 		// console.log("interval off");
 		
 		// When we press the down key
 		// we want to stop the player 
 		// stop the interval, 
 		// and we need to activate it when user leaves the down key: for that we're creating the func -> 
-		setDropTime(null);
+		isNotTouchEvent && setDropTime(null);
 		drop();
 	};
 
@@ -130,35 +131,58 @@ const Tetris = () => {
 		}
 	};
 
-	// useInterval
+	const handleSwipe = (direction) => {
+		if (!gameOver) {
+			if (direction === 'left') movePlayer(-1);
+			else if (direction === 'right') movePlayer(1);
+			else if (direction === 'bottom') dropPlayer(false); // isNotTouchEvent = false
+			else if (direction === 'top') playerRotate(stage, 1); // 1 indicates in clock-wise
+		}
+	};
+
 	useInterval(() => {
 		drop();
 	}, dropTime);
 
+	/**  trying out touch feature: https://www.linkedin.com/pulse/touch-detection-react-daniel-paschal/ */
+	// const handleTouch = (mode, e) => {
+	// 	console.log('mode: ', mode);
+	// 	console.log('handleTouch: e = ', e);
+	// 	const firstTouchEvent = e.touches[0];
+	// 	const location = {
+	// 		x: firstTouchEvent.clientX,
+	// 		y: firstTouchEvent.clientY,
+	// 	};
+	// };
+
 	return (
-		/** role="button" will register the keystrokes */  
-		<StyledTetrisWrapper 
-			role="button" 
-			tabIndex="0" 
-			onKeyDown={e => 
-			move(e)} onKeyUp={keyUp}
+		<ReactTouchEvents
+			onSwipe={(direction) => handleSwipe(direction)}
 		>
-			<StyledTetris>
-				<Stage stage={stage} />
-				<aside>
-					{gameOver ? (
-						<Display gameOver={gameOver} text="Game Over" />
-					) : (
-							<div>
-								<Display text={`Score: ${score}`} />
-								<Display text={`Rows: ${rows}`} />
-								<Display text={`Level: ${level}`} />
-							</div>
-					)}
-					<StartButton callback={startGame} />
-				</aside>
-			</StyledTetris>
-		</StyledTetrisWrapper>
+			{/* role="button" will register the keystrokes */}
+			<StyledTetrisWrapper 
+				role="button" 
+				tabIndex="0" 
+				onKeyDown={e => move(e)} 
+				onKeyUp={keyUp}
+			>
+				<StyledTetris>
+					<Stage stage={stage} />
+					<aside>
+						{gameOver ? (
+							<Display gameOver={gameOver} text="Game Over" />
+						) : (
+								<div>
+									<Display text={`Score: ${score}`} />
+									<Display text={`Rows: ${rows}`} />
+									<Display text={`Level: ${level}`} />
+								</div>
+						)}
+						<StartButton callback={startGame} />
+					</aside>
+				</StyledTetris>
+			</StyledTetrisWrapper>
+		</ReactTouchEvents>
 	);
 };
 
